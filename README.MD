@@ -16,46 +16,8 @@ git clone [https://github.com/Tonomatic/PlaywrightTesting.git]
 2. **Install Dependencies**
 npm install
 
-3. **Install Playwright**
-npm i -D playwright
-
-
-### Project Structure
-- `tests/`: Contains all test scripts.
-- `pageObjects/`: Page Object Models for web page interactions.
-- `helpers/`: Utility functions and custom commands.
-- `reports/`: Storage for test reports.
-- `configs/`: Configuration files.
-
-### Configuration
-- Configure your tests in `playwright.config.js`.
-- Use environment variables for sensitive data.
-
-### Writing Tests
-- Follow the Page Object Model (POM) pattern.
-- Keep tests modular and focused on specific functionalities.
-
-### Running Tests
-To run tests, execute:
-npm test
-
-## Continuous Integration
-- Integrate with CI/CD tools like Jenkins, GitHub Actions, or GitLab CI.
-- Ensure tests run automatically on every push.
-
-## Reporting
-- Use tools like Allure or Playwright's HTML reporter for test reports.
-
-## Contributing
-- Follow the coding standards and code review practices.
-- Document any major changes in the project.
-
-## Version Control
-- Use Git for version control.
-- Regularly push changes to the remote repository.
-
-## Maintenance
-- Regularly update and refactor tests as needed.
+3. **Running Tests**
+npx playwright test
 
 ---
 
