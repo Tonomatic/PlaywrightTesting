@@ -24,13 +24,20 @@ test('Check Job tracker', async ({ page }) => {
 });
 
 test('Get all jobs posted within 3 days', async ({ page }) => {
-    await page.goto('https://www.levels.fyi');
+    await page.goto('https://www.levels.fyi/jobs?from=subnav');
 
-    // Expect Levels.fyi logo to be visible
-    await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
 
-    // Click on the jobs link
-    await page.locator('a :text-is("Jobs")').click();
+    // // Click on and grab the frame of a page
+    // // Get frame using the frame's name attribute
+    // const frame = page.frameLocator('.snapshot-visible');
+
+    // // Expect Levels.fyi logo to be visible
+    // await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
+
+    // // Click on the jobs link
+    // await page.locator('a :text-is("Jobs")').click();
+    // Close Moda
+    await page.locator('[aria-label="Close"][class*="closeButton"]').click();
 
     // Fill in the Software Keyword
     await page.locator('[placeholder="Search by title, keyword or company"]').fill("Software Engineer");
@@ -57,7 +64,7 @@ test('Get all jobs posted within 3 days', async ({ page }) => {
     await page.locator('[for="United States"]').click();
 
     // Exit out of the modal by clicking 0, 0 position
-    await page.mouse.click(0, 0); 
+    await page.mouse.click(0, 0);
 
     // 
 
@@ -67,5 +74,5 @@ test('Get all jobs posted today', async ({ page }) => {
     await page.goto('https://www.levels.fyi');
 
     // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Playwright/);
+    await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
 });
