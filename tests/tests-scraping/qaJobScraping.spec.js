@@ -1,31 +1,10 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-const calculateKeywordScore = require('../Helpers/functions');
-const exp = require('constants');
+const calculateKeywordScore = require('../Helpers/functions.js');
+const {positiveQAKeywords, negativeQAKeywords} = require('../Helpers/filterKeys.js');
 
-test('Check Job tracker', async ({ page }) => {
-    await page.goto('https://www.trueup.io/');
-
-    // Expect a title "to contain" a substring.
-    await expect(page.locator('[src="/img/trueup_logo.svg"]')).toBeVisible();
-
-    // Click on the MORE link
-    await page.locator('[class="dropdown-toggle nav-link"]:has-text("MORE")').click();
-
-    // Click the Layoff tracker
-    await page.locator('[href="/layoffs"]').click();
-
-    // Click the Job Trend
-    await page.locator('[href="/job-trend"]').click();
-
-    // Grab the number of job openings
-    const jobOpenings = await page.locator('div:text-is("Open Jobs at Tech Companies") ~ div div >> nth = 0').innerText();
-
-    // Return job openings
-    console.log(jobOpenings);
-});
-
-test('Get all jobs posted within 3 days', async ({ page }) => {
+// Test within 3 days
+test('Get all QA jobs posted within 3 days', async ({ page }) => {
     // Set default timeout to 10 seconds rather than 5
     page.setDefaultTimeout(10 * 1000);
 
@@ -36,7 +15,7 @@ test('Get all jobs posted within 3 days', async ({ page }) => {
     await page.locator('[aria-label="Close"][class*="closeButton"]').click();
 
     // Fill in the Software Keyword
-    await page.locator('[placeholder="Search by title, keyword or company"]').fill("Software Engineer");
+    await page.locator('[placeholder="Search by title, keyword or company"]').fill("QA Engineer");
 
     // Press enter
     await page.keyboard.press('Enter');
@@ -67,14 +46,13 @@ test('Get all jobs posted within 3 days', async ({ page }) => {
     // Exit out of the modal by clicking 0, 0 position
     await page.mouse.click(0, 0);
 
-    // 
-    console.log('END')
+    // Sort by Date Posted
 
 });
 
-test('Get all jobs posted today', async ({ page }) => {
-    await page.goto('https://www.levels.fyi');
+// test('Get all jobs posted today', async ({ page }) => {
+//     await page.goto('https://www.levels.fyi');
 
-    // Expect a title "to contain" a substring.
-    await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
-});
+//     // Expect a title "to contain" a substring.
+//     await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
+// });
