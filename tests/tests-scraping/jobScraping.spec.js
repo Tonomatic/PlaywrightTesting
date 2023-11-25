@@ -1,5 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const exp = require('constants');
 
 test('Check Job tracker', async ({ page }) => {
     await page.goto('https://www.trueup.io/');
@@ -24,18 +25,12 @@ test('Check Job tracker', async ({ page }) => {
 });
 
 test('Get all jobs posted within 3 days', async ({ page }) => {
+    // Set default timeout to 10 seconds rather than 5
+    page.setDefaultTimeout(10 * 1000);
+
+    // Navigate to page
     await page.goto('https://www.levels.fyi/jobs?from=subnav');
 
-
-    // // Click on and grab the frame of a page
-    // // Get frame using the frame's name attribute
-    // const frame = page.frameLocator('.snapshot-visible');
-
-    // // Expect Levels.fyi logo to be visible
-    // await expect(page.locator('.logo:has-text("Levels FYI Logo")')).toBeVisible();
-
-    // // Click on the jobs link
-    // await page.locator('a :text-is("Jobs")').click();
     // Close Moda
     await page.locator('[aria-label="Close"][class*="closeButton"]').click();
 
@@ -52,21 +47,27 @@ test('Get all jobs posted within 3 days', async ({ page }) => {
     // Exit out of the modal by clicking 0, 0 position
     await page.mouse.click(0, 0);
 
+    // Close Message Modal
+    await expect(page.locator('a[aria-label="Open chat"] [data-id="new_messages"] span span span').first()).toBeVisible();
+    await page.locator('a[aria-label="Open chat"] [data-id="new_messages"] span span span').first().click();
+    await page.waitForTimeout(3000);
+
     // Click on the filter button for Date posted and click past 3 days
-    await page.locator('span:has-text("Date Posted")').click();
-    await page.locator('[for="3"]').click();
+    await page.locator('span:has-text("Date Posted")').first().click();
+    await page.locator('[for="3"]').click({ force: true });
 
     // Exit out of the modal by clicking 0, 0 position
     await page.mouse.click(0, 0);
 
     // Click on the filter button for location and click United States
-    await page.locator('span:has-text("Location")').click();
+    await page.locator('span:text-is("Location")').click();
     await page.locator('[for="United States"]').click();
 
     // Exit out of the modal by clicking 0, 0 position
     await page.mouse.click(0, 0);
 
     // 
+    console.log('END')
 
 });
 
